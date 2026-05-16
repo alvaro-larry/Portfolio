@@ -2,6 +2,8 @@
 
 > Read this in [Spanish / Español](./README.es.md)
 
+🌐 **[View this project online](https://alvaro-larry.github.io/Portfolio/projects/proyecto-1/)** · 📂 [Project folder on GitHub](https://github.com/alvaro-larry/Portfolio/tree/main/projects/proyecto-1) · 🏠 [Portfolio home](https://alvaro-larry.github.io/Portfolio/)
+
 End-to-end exploratory data analysis of the global video game market — from raw CSV to a cleaned SQL database to an interactive Power BI dashboard. **16,712 titles · ~8,918M units sold globally · NA / EU / JP / Other markets.**
 
 ---
@@ -160,8 +162,8 @@ Madrid, Spain.
 - Email: alvarolarriba@gmail.com
 - LinkedIn: [Álvaro Larriba Rius](https://www.linkedin.com/in/alvaro-larriba-ab62903aa)
 - GitHub: [@alvaro-larry](https://github.com/alvaro-larry)
-- Portfolio: see [the main README](../../README.md)
+- Portfolio: [alvaro-larry.github.io/Portfolio](https://alvaro-larry.github.io/Portfolio/) · [Repository](https://github.com/alvaro-larry/Portfolio)
 
 ---
 
-*Part of [my data analysis portfolio](../../README.md). Project 1 of a growing series.*
+*Part of [my data analysis portfolio](https://alvaro-larry.github.io/Portfolio/). Project 1 of a growing series.*

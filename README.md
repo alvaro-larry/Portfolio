@@ -1,7 +1,10 @@
 # Portfolio · Álvaro Larriba Rius
 
-Portfolio personal de análisis de datos.
-Madrid · [LinkedIn](https://www.linkedin.com/in/alvaro-larriba-ab62903aa) · [GitHub](https://github.com/alvaro-larry) · alvarolarriba@gmail.com
+Portfolio personal de análisis de datos · Madrid
+
+🌐 **Sitio web** — [alvaro-larry.github.io/Portfolio](https://alvaro-larry.github.io/Portfolio/)  
+📂 **Repositorio** — [github.com/alvaro-larry/Portfolio](https://github.com/alvaro-larry/Portfolio)  
+🔗 [LinkedIn](https://www.linkedin.com/in/alvaro-larriba-ab62903aa) · ✉️ alvarolarriba@gmail.com
 
 ---
 
@@ -20,7 +23,7 @@ Me interesa el análisis de datos porque me permite unir esa forma de pensar con
 Análisis exploratorio del mercado global de videojuegos: **16.712 títulos** y **~8.918M unidades vendidas**. Limpieza y análisis en SQL, dashboard interactivo en Power BI, exploraciones complementarias en Excel. Responde a una pregunta guía: *¿qué hace que un videojuego tenga éxito comercial?* (estructura de mercado, factores de calidad, preferencias regionales, evolución temporal y rating).
 
 **Stack:** `SQL` · `SQLite` · `Power BI` · `Excel`
-**Ver:** [README detallado (EN)](projects/proyecto-1/README.md) · [Versión en español](projects/proyecto-1/README.es.md) · [Página del proyecto](projects/proyecto-1/index.html) · [Dashboard (PDF)](projects/proyecto-1/powerbi/Video%20Games%20Market%20Analysis.pdf)
+**Ver:** 🌐 **[Página online](https://alvaro-larry.github.io/Portfolio/projects/proyecto-1/)** · [README (EN)](projects/proyecto-1/README.md) · [README (ES)](projects/proyecto-1/README.es.md) · [Dashboard PDF](projects/proyecto-1/powerbi/Video%20Games%20Market%20Analysis.pdf) · [Carpeta en GitHub](https://github.com/alvaro-larry/Portfolio/tree/main/projects/proyecto-1)
 
 ### 02 · Próximamente
 

@@ -197,10 +197,45 @@
     #projects { background: var(--bg2); }
     .projects-intro {
       font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem;
-      color: var(--muted); margin-bottom: 3rem;
+      color: var(--muted); margin-bottom: 1.5rem;
       padding: 1rem 1.5rem;
       border-left: 2px solid var(--orange);
       background: rgba(255,107,53,0.04); border-radius: 0 6px 6px 0; line-height: 1.9;
+    }
+    .repo-banner {
+      display: flex; align-items: center; gap: 1.2rem;
+      padding: 1.2rem 1.5rem; margin-bottom: 2.5rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; transition: all 0.2s;
+      color: var(--text); text-decoration: none;
+    }
+    .repo-banner:hover { border-color: var(--cyan); transform: translateY(-2px); }
+    .repo-banner svg { flex-shrink: 0; opacity: 0.8; transition: opacity 0.2s, color 0.2s; }
+    .repo-banner:hover svg { opacity: 1; color: var(--cyan); }
+    .repo-banner-text { flex: 1; display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+    .repo-banner-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .repo-banner-url {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem; font-weight: 600; color: var(--text);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .repo-banner:hover .repo-banner-url { color: var(--cyan); }
+    .repo-banner-arrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.3rem; color: var(--muted); flex-shrink: 0;
+      transition: transform 0.2s, color 0.2s;
+    }
+    .repo-banner:hover .repo-banner-arrow { color: var(--cyan); transform: translateX(4px); }
+    @media (max-width: 480px) {
+      .repo-banner { padding: 1rem 1.2rem; gap: 0.9rem; margin-bottom: 2rem; }
+      .repo-banner-label { font-size: 0.62rem; }
+      .repo-banner-url { font-size: 0.88rem; }
+      .repo-banner-arrow { font-size: 1.1rem; }
+      .repo-banner svg { width: 22px; height: 22px; }
     }
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
     .project-card {
