@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Game Sales Analysis (1980–2016) · Álvaro Larriba</title>
+  <meta name="description" content="Análisis exploratorio del mercado global de videojuegos: 16.712 títulos, ~8.918M unidades vendidas. SQL + Power BI + Excel." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/styles.css" />
+
+  <style>
+    /* ============================================
+       OVERRIDES sobre el styles.css del portfolio
+       (el portfolio usa scroll oculto con page-view;
+        aquí queremos scroll natural de página única)
+       ============================================ */
+    body { overflow: auto; }
+    main.project-page { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
+
+    /* HERO del proyecto */
+    .project-hero {
+      padding: 9rem 4rem 4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .project-hero h1 {
+      font-size: clamp(2.4rem, 5.5vw, 4.8rem);
+      margin-bottom: 0.4em;
+    }
+    .project-hero .project-meta {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      font-weight: 600;
+      color: var(--orange);
+      margin-bottom: 1.6rem;
+      letter-spacing: 0.01em;
+    }
+    .project-hero .project-lead {
+      font-size: 1.1rem; color: #9ca3af;
+      max-width: 640px; line-height: 1.75;
+      margin-bottom: 2rem; font-style: italic;
+    }
+    .hero-tags {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .hero-tags .tag { color: var(--cyan); background: rgba(0,245,212,0.08); border-color: rgba(0,245,212,0.25); }
+
+    /* Secciones */
+    .project-section {
+      padding: 5rem 4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .project-section:last-of-type { border-bottom: none; }
+
+    /* Estadísticas */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .stat-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.4rem 1.2rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .stat-card:hover { border-color: rgba(0,245,212,0.25); transform: translateY(-2px); }
+    .stat-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.6rem;
+    }
+    .stat-value {
+      font-family: 'Syne', sans-serif; font-size: 1.7rem;
+      font-weight: 700; color: #fff; line-height: 1.1;
+    }
+    .stat-value .unit {
+      font-size: 0.85rem; color: var(--cyan); margin-left: 0.25em; font-weight: 400;
+    }
+    .stat-sub {
+      margin-top: 0.4rem; font-size: 0.8rem; color: var(--muted);
+      font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em;
+    }
+
+    /* Metodología */
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.3rem;
+    }
+    .method-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.7rem;
+      position: relative; overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s;
+    }
+    .method-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--ac, var(--cyan));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .method-card:hover { transform: translateY(-3px); }
+    .method-card:hover::before { transform: scaleX(1); }
+    .method-card:nth-child(1) { --ac: var(--cyan); }
+    .method-card:nth-child(2) { --ac: var(--orange); }
+    .method-card:nth-child(3) { --ac: var(--lime); }
+    .method-step {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--ac, var(--cyan));
+      margin-bottom: 0.6rem;
+    }
+    .method-title {
+      font-family: 'Syne', sans-serif; font-size: 1.15rem;
+      font-weight: 700; color: #fff; margin-bottom: 0.8rem;
+    }
+    .method-body {
+      font-size: 0.95rem; color: #9ca3af; line-height: 1.7;
+    }
+    .method-body code {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.85em;
+      background: rgba(255,255,255,0.05); padding: 0.1em 0.4em;
+      border-radius: 3px; color: var(--text);
+    }
+
+    /* Hallazgos */
+    .findings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.3rem;
+    }
+    .finding-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.7rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .finding-card:hover { border-color: rgba(255,107,53,0.25); transform: translateY(-2px); }
+    .finding-head {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--orange);
+      margin-bottom: 0.6rem;
+    }
+    .finding-title {
+      font-family: 'Syne', sans-serif; font-size: 1.15rem;
+      font-weight: 700; color: #fff; margin-bottom: 1rem;
+    }
+    .finding-card ul {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 0.65rem;
+    }
+    .finding-card li {
+      font-size: 0.92rem; color: #c8ccd6; line-height: 1.6;
+      padding-left: 1.1rem; position: relative;
+    }
+    .finding-card li::before {
+      content: '›'; position: absolute; left: 0; top: -0.1em;
+      color: var(--cyan); font-weight: 700;
+    }
+    .finding-card strong { color: #fff; font-weight: 600; }
+
+    /* Dashboard preview */
+    .dashboard-frame {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      background: var(--card);
+      aspect-ratio: 16 / 10;
+      margin-bottom: 1.5rem;
+    }
+    .dashboard-frame iframe {
+      width: 100%; height: 100%; border: 0;
+      background: #fff;
+    }
+    .dashboard-fallback {
+      display: none;
+      padding: 3rem 2rem; text-align: center;
+    }
+    .dashboard-fallback svg { opacity: 0.5; margin-bottom: 1rem; }
+    .dashboard-actions {
+      display: flex; gap: 0.8rem; flex-wrap: wrap;
+    }
+
+    /* Limitaciones */
+    .limits-list {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 0.9rem;
+    }
+    .limits-list li {
+      font-size: 0.95rem; color: #9ca3af; line-height: 1.7;
+      padding: 1rem 1.2rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 8px; border-left: 2px solid var(--orange);
+    }
+    .limits-list li strong { color: var(--text); font-weight: 500; }
+
+    /* Footer del proyecto */
+    .project-footer {
+      padding: 2.5rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 1rem; flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+    }
+    .project-footer .back-link {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem; letter-spacing: 0.08em;
+      color: var(--muted); transition: color 0.2s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .project-footer .back-link:hover { color: var(--cyan); }
+    .project-footer .footer-copy {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem; color: var(--muted);
+    }
+    .project-footer .footer-copy span { color: var(--cyan); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .project-hero { padding: 7rem 1.5rem 3rem; }
+      .project-section { padding: 3.5rem 1.5rem; }
+      .project-footer { padding: 1.8rem 1.5rem; }
+      .dashboard-frame { aspect-ratio: 4 / 5; }
+    }
+    @media (max-width: 480px) {
+      .project-hero { padding: 6rem 1rem 2.5rem; }
+      .project-section { padding: 2.8rem 1rem; }
+      .project-footer { padding: 1.4rem 1rem; }
+      .stat-value { font-size: 1.4rem; }
+      .dashboard-frame { display: none; }
+      .dashboard-fallback { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="../../index.html" class="nav-logo">álvaro.larriba<span style="color:var(--muted)">[ ]</span></a>
+    <ul class="nav-links">
+      <li><a href="#overview">Resumen</a></li>
+      <li><a href="#methodology">Metodología</a></li>
+      <li><a href="#findings">Hallazgos</a></li>
+      <li><a href="#dashboard">Dashboard</a></li>
+      <li><a href="../../index.html#projects" style="color:var(--cyan)">← Portfolio</a></li>
+    </ul>
+  </nav>
+
+  <main class="project-page">
+
+    <!-- HERO -->
+    <section class="project-hero">
+      <div class="hero-tag">Proyecto 01 · Data Analysis</div>
+      <h1>Video Game<br>Sales <span class="accent">Analysis</span></h1>
+      <div class="project-meta">1980 – 2016 · 16.712 títulos · ~8.918M unidades</div>
+      <p class="project-lead">
+        Análisis exploratorio completo del mercado global de videojuegos: del CSV en bruto
+        a una base SQL limpia y un dashboard interactivo en Power BI. Una pregunta guía:
+        <strong style="color:var(--text)">¿qué hace que un videojuego tenga éxito comercial?</strong>
+      </p>
+      <div class="hero-tags">
+        <span class="tag solid">SQL</span>
+        <span class="tag solid">SQLite</span>
+        <span class="tag solid">Power BI</span>
+        <span class="tag solid">Excel</span>
+      </div>
+      <div class="hero-ctas">
+        <a href="powerbi/Video%20Games%20Market%20Analysis.pdf" target="_blank" rel="noopener" class="btn btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+          Ver dashboard (PDF)
+        </a>
+        <a href="https://github.com/alvaro-larry/Portfolio/tree/main/projects/proyecto-1" target="_blank" rel="noopener" class="btn btn-ghost">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          Ver en GitHub
+        </a>
+      </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section id="overview" class="project-section">
+      <div class="section-label">Resumen</div>
+      <h2>El proyecto en cifras</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Títulos analizados</div>
+          <div class="stat-value">16.712</div>
+          <div class="stat-sub">tras la limpieza</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Ventas globales</div>
+          <div class="stat-value">8.918<span class="unit">M ud.</span></div>
+          <div class="stat-sub">acumuladas 1980–2016</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Pico de la industria</div>
+          <div class="stat-value">2008</div>
+          <div class="stat-sub">en lanzamientos y ventas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">#1 histórico</div>
+          <div class="stat-value">Wii Sports</div>
+          <div class="stat-sub">82,5M de unidades</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- METHODOLOGY -->
+    <section id="methodology" class="project-section" style="background: var(--bg2);">
+      <div class="section-label">Metodología</div>
+      <h2>De CSV en bruto a dashboard</h2>
+      <div class="method-grid">
+
+        <div class="method-card">
+          <div class="method-step">01 · Limpieza</div>
+          <div class="method-title">SQL · SQLite</div>
+          <div class="method-body">
+            Tratamiento de nulos, deduplicación y normalización: <code>'tbd'</code> → <code>NULL</code>,
+            clasificaciones legacy (<code>K-A</code>, <code>EC</code>) → <code>E</code>, conversión de
+            tipos numéricos a <code>REAL</code>/<code>INTEGER</code> y eliminación de filas con años
+            inválidos o duplicados con ventas mal registradas.
+          </div>
+        </div>
+
+        <div class="method-card">
+          <div class="method-step">02 · Análisis</div>
+          <div class="method-title">SQL analítico</div>
+          <div class="method-body">
+            Seis bloques temáticos: contexto de mercado, factores estructurales de éxito,
+            análisis regional, evolución temporal, cruces avanzados (índice Calidad–Ventas,
+            discrepancia crítica–usuario) y análisis de rating ESRB.
+          </div>
+        </div>
+
+        <div class="method-card">
+          <div class="method-step">03 · Visualización</div>
+          <div class="method-title">Power BI + Excel</div>
+          <div class="method-body">
+            Dashboard interactivo construido sobre los datos limpios, que resume los hallazgos
+            para un público no técnico. Excel se usa como apoyo para exploraciones puntuales y
+            pivot tables auxiliares.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FINDINGS -->
+    <section id="findings" class="project-section">
+      <div class="section-label">Hallazgos clave</div>
+      <h2>Lo que dicen los datos</h2>
+      <div class="findings-grid">
+
+        <div class="finding-card">
+          <div class="finding-head">// Estructura del mercado</div>
+          <div class="finding-title">¿Qué vende?</div>
+          <ul>
+            <li><strong>Action</strong> lidera en volumen total; <strong>Platform</strong> tiene el techo más alto (Mario, Donkey Kong).</li>
+            <li>Las consolas de sobremesa <strong>PS2, X360, PS3 y Wii</strong> dominan las ventas totales.</li>
+            <li><strong>Nintendo</strong> promedia <strong>2,77M ud./juego</strong> — con diferencia, lo más alto de la industria.</li>
+          </ul>
+        </div>
+
+        <div class="finding-card">
+          <div class="finding-head">// Calidad vs. ventas</div>
+          <div class="finding-title">La crítica predice mejor que el usuario</div>
+          <ul>
+            <li>Juegos con 40+ reviews de crítica venden <strong>~6×</strong> más que los que tienen menos de 10.</li>
+            <li>Cuando la crítica puntúa más alto que los usuarios, las ventas medias <strong>llegan a 1,28M</strong>.</li>
+            <li>Cuando los usuarios puntúan más alto que la crítica, caen a <strong>0,31M</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="finding-card">
+          <div class="finding-head">// Regiones</div>
+          <div class="finding-title">Japón juega a otra cosa</div>
+          <ul>
+            <li>Reparto global: <strong>NA 49,4%</strong> · EU 27,2% · JP 14,6% · Resto 8,9%.</li>
+            <li>NA y EU comparten perfil: <strong>Action, Sports, Shooter</strong>.</li>
+            <li>Japón lidera <strong>Role-Playing</strong>, prefiere portátiles Nintendo y Pokémon copa el top.</li>
+          </ul>
+        </div>
+
+        <div class="finding-card">
+          <div class="finding-head">// Rating ESRB</div>
+          <div class="finding-title">El contenido adulto no perjudica</div>
+          <ul>
+            <li><strong>E</strong> domina en volumen (~40% de los títulos).</li>
+            <li>Pero los juegos <strong>M</strong> tienen las ventas medias más altas (<strong>0,94M</strong>).</li>
+            <li>Lo empujan franquicias como GTA y Call of Duty.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="project-section" style="background: var(--bg2);">
+      <div class="section-label">Dashboard</div>
+      <h2>Vista previa</h2>
+      <div class="dashboard-frame">
+        <iframe src="powerbi/Video%20Games%20Market%20Analysis.pdf#toolbar=0&navpanes=0&view=FitH" title="Dashboard Power BI · Video Games Market Analysis"></iframe>
+      </div>
+      <div class="dashboard-fallback">
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <p style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:0.85rem;margin-bottom:1.2rem;">
+          La vista previa embebida no se muestra en móvil. Abre el PDF a tamaño completo:
+        </p>
+      </div>
+      <div class="dashboard-actions">
+        <a href="powerbi/Video%20Games%20Market%20Analysis.pdf" target="_blank" rel="noopener" class="btn btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Abrir PDF completo
+        </a>
+        <a href="powerbi/Video%20Games%20Market%20Analysis.pbix" class="btn btn-ghost">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Descargar .pbix
+        </a>
+        <a href="https://github.com/alvaro-larry/Portfolio/blob/main/projects/proyecto-1/README.md" target="_blank" rel="noopener" class="btn btn-ghost">
+          README completo →
+        </a>
+      </div>
+    </section>
+
+    <!-- LIMITATIONS -->
+    <section class="project-section">
+      <div class="section-label">Limitaciones</div>
+      <h2>Lo que el dataset no permite</h2>
+      <ul class="limits-list">
+        <li><strong>Corte temporal:</strong> diciembre de 2016. Los lanzamientos modernos (mid-ciclo PS4 en adelante) no están representados.</li>
+        <li><strong>Cobertura desigual de campos de calidad:</strong> falta <strong>Critic_Score</strong> en el 51,3% de los títulos, <strong>User_Score</strong> en el 54,6%, <strong>Rating</strong> en el 40,5% y <strong>Developer</strong> en el 39,6%. Cualquier análisis sobre puntuaciones o rating está condicionado a la disponibilidad.</li>
+        <li><strong>Sesgo de Metacritic:</strong> las puntuaciones provienen de Metacritic y heredan sus sesgos de selección (puntúan los fans más fieles; el público mainstream no suele puntuar).</li>
+        <li><strong>Sell-in, no facturación:</strong> las ventas están medidas en unidades distribuidas, no en ingresos.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="project-footer">
+    <a href="../../index.html#projects" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Volver al portfolio
+    </a>
+    <div class="footer-copy">© 2025 <span>Álvaro Larriba Rius</span> · Proyecto 01</div>
+  </footer>
+
+</body>
+</html>

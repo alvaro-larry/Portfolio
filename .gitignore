@@ -1,0 +1,57 @@
+# ============================================
+# Archivos del sistema operativo
+# ============================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ============================================
+# Lockfiles de Microsoft Office
+# (Word, Excel, PowerPoint los crean al abrir
+#  un archivo; nunca deben subirse al repo)
+# ============================================
+~$*.docx
+~$*.xlsx
+~$*.pptx
+
+# ============================================
+# Archivos temporales de editores
+# ============================================
+*.swp
+*.swo
+*~
+
+# ============================================
+# Carpetas de salida temporales
+# (si en algún proyecto generas outputs que no
+#  forman parte del entregable, vivirán aquí)
+# ============================================
+**/outputs/
+
+# ============================================
+# Variables de entorno locales
+# ============================================
+.env
+.env.local
+
+# ============================================
+# Python (para cuando lo vayas incorporando)
+# ============================================
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# ============================================
+# Logs
+# ============================================
+*.log
+
+# ============================================
+# Nota: el .vscode/ con la conexión SQLTools
+# se mantiene en el repo a propósito, para que
+# cualquiera que clone el portfolio herede la
+# configuración de acceso a videogames.db.
+# ============================================

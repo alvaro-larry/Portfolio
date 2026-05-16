@@ -1,0 +1,10 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "vg",
+            "database": "${workspaceFolder:proyecto-1}/data/videogames.db"
+        }
+    ]
+}
