@@ -20,7 +20,7 @@ Me interesa el análisis de datos porque me permite unir esa forma de pensar con
 
 ### 01 · Video Game Sales Analysis (1980–2016)
 
-Análisis exploratorio del mercado global de videojuegos: **16.712 títulos** y **~8.918M unidades vendidas**. Limpieza y análisis en SQL, dashboard interactivo en Power BI, exploraciones complementarias en Excel. Responde a una pregunta guía: *¿qué hace que un videojuego tenga éxito comercial?* (estructura de mercado, factores de calidad, preferencias regionales, evolución temporal y rating).
+Análisis del mercado global de videojuegos sobre **16.712 títulos** y **~8.918M unidades vendidas**, orientado a una decisión de negocio: *¿en qué juego habría apostado un publisher de tamaño medio en 2016?* Limpieza y análisis en SQL, dashboard interactivo en Power BI, exploraciones complementarias en Excel. Incluye hallazgos descriptivos y recomendaciones concretas estructuradas como decisiones (género, plataforma, región, rating, calidad/prensa).
 
 **Stack:** `SQL` · `SQLite` · `Power BI` · `Excel`
 **Ver:** 🌐 **[Página online](https://alvaro-larry.github.io/Portfolio/projects/proyecto-1/)** · [README (EN)](projects/proyecto-1/README.md) · [README (ES)](projects/proyecto-1/README.es.md) · [Dashboard PDF](projects/proyecto-1/powerbi/Video%20Games%20Market%20Analysis.pdf) · [Carpeta en GitHub](https://github.com/alvaro-larry/Portfolio/tree/main/projects/proyecto-1)

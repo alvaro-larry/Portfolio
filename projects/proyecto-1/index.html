@@ -234,6 +234,62 @@
     }
     .project-footer .footer-copy span { color: var(--cyan); }
 
+    /* Encargo (brief) */
+    .brief-context {
+      font-size: 1rem; color: #9ca3af; line-height: 1.75;
+      max-width: 720px; margin-bottom: 2rem;
+    }
+    .brief-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .brief-item {
+      padding: 1.4rem 1.3rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; transition: border-color 0.2s, transform 0.2s;
+    }
+    .brief-item:hover { border-color: var(--cyan); transform: translateY(-2px); }
+    .brief-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.12em; color: var(--cyan);
+      margin-bottom: 0.4rem;
+    }
+    .brief-decision {
+      font-family: 'Syne', sans-serif; font-size: 1.15rem;
+      font-weight: 700; color: #fff; margin-bottom: 0.5rem;
+    }
+    .brief-question {
+      font-size: 0.88rem; color: #9ca3af; line-height: 1.55;
+    }
+
+    /* Recomendaciones */
+    .rec-intro {
+      font-size: 0.95rem; color: #9ca3af; line-height: 1.7;
+      max-width: 760px; margin-bottom: 2rem;
+    }
+    .rec-card {
+      padding: 1.6rem 1.5rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; margin-bottom: 1rem;
+      transition: border-color 0.2s;
+    }
+    .rec-card:hover { border-color: var(--orange); }
+    .rec-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 0.6rem;
+    }
+    .rec-recommend {
+      font-family: 'Syne', sans-serif; font-size: 1.1rem;
+      font-weight: 600; color: #fff; margin-bottom: 0.7rem;
+      line-height: 1.35;
+    }
+    .rec-why {
+      font-size: 0.92rem; color: #c8ccd6; line-height: 1.65;
+    }
+    .rec-why strong { color: var(--text); font-weight: 500; }
+
     /* Responsive */
     @media (max-width: 768px) {
       .project-hero { padding: 7rem 1.5rem 3rem; }
@@ -257,9 +313,10 @@
   <nav>
     <a href="../../index.html" class="nav-logo">álvaro.larriba<span style="color:var(--muted)">[ ]</span></a>
     <ul class="nav-links">
-      <li><a href="#overview">Resumen</a></li>
+      <li><a href="#brief">Encargo</a></li>
       <li><a href="#methodology">Metodología</a></li>
       <li><a href="#findings">Hallazgos</a></li>
+      <li><a href="#recommendations">Recomendaciones</a></li>
       <li><a href="#dashboard">Dashboard</a></li>
       <li><a href="../../index.html#projects" style="color:var(--cyan)">← Portfolio</a></li>
     </ul>
@@ -273,9 +330,9 @@
       <h1>Video Game<br>Sales <span class="accent">Analysis</span></h1>
       <div class="project-meta">1980 – 2016 · 16.712 títulos · ~8.918M unidades</div>
       <p class="project-lead">
-        Análisis exploratorio completo del mercado global de videojuegos: del CSV en bruto
-        a una base SQL limpia y un dashboard interactivo en Power BI. Una pregunta guía:
-        <strong style="color:var(--text)">¿qué hace que un videojuego tenga éxito comercial?</strong>
+        Análisis orientado a la decisión sobre el mercado global de videojuegos. Pregunta guía:
+        <strong style="color:var(--text)">¿en qué juego habría apostado un publisher de tamaño medio en 2016, y por qué?</strong>
+        Limpieza y análisis en SQL, dashboard en Power BI, exploración complementaria en Excel.
       </p>
       <div class="hero-tags">
         <span class="tag solid">SQL</span>
@@ -292,6 +349,42 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
           Ver en GitHub
         </a>
+      </div>
+    </section>
+
+    <!-- EL ENCARGO (BRIEF) -->
+    <section id="brief" class="project-section">
+      <div class="section-label">El encargo</div>
+      <h2>Cinco decisiones que tomar</h2>
+      <p class="brief-context">
+        Imagina que es finales de 2016 y diriges un publisher de videojuegos de tamaño medio, con presupuesto para apostar por un gran lanzamiento en los próximos 2-3 años. ¿Por dónde apuestas? Este análisis trata los 16.712 títulos del dataset como evidencia para informar cinco decisiones comerciales concretas.
+      </p>
+      <div class="brief-grid">
+        <div class="brief-item">
+          <div class="brief-num">01</div>
+          <div class="brief-decision">Género</div>
+          <div class="brief-question">¿Qué género maximiza las ventas esperadas para nuestro perfil de riesgo?</div>
+        </div>
+        <div class="brief-item">
+          <div class="brief-num">02</div>
+          <div class="brief-decision">Plataforma</div>
+          <div class="brief-question">¿Dónde publicamos — y en cuántas plataformas?</div>
+        </div>
+        <div class="brief-item">
+          <div class="brief-num">03</div>
+          <div class="brief-decision">Región</div>
+          <div class="brief-question">¿Para quién diseñamos primero: NA/EU, Japón, o todas las regiones?</div>
+        </div>
+        <div class="brief-item">
+          <div class="brief-num">04</div>
+          <div class="brief-decision">Rating ESRB</div>
+          <div class="brief-question">¿A qué franja de edad apuntamos?</div>
+        </div>
+        <div class="brief-item">
+          <div class="brief-num">05</div>
+          <div class="brief-decision">Calidad &amp; prensa</div>
+          <div class="brief-question">¿Cuánto destinamos a polish y a cobertura mediática?</div>
+        </div>
       </div>
     </section>
 
@@ -409,6 +502,55 @@
           </ul>
         </div>
 
+      </div>
+    </section>
+
+    <!-- RECOMENDACIONES -->
+    <section id="recommendations" class="project-section" style="background: var(--bg2);">
+      <div class="section-label">Recomendaciones</div>
+      <h2>Decisiones recomendadas (a fecha de 2016)</h2>
+      <p class="rec-intro">
+        Cada recomendación responde a una decisión del encargo, se apoya en los hallazgos anteriores y está dimensionada a lo que un publisher mediano podría ejecutar realmente.
+      </p>
+
+      <div class="rec-card">
+        <div class="rec-num">01 · Género</div>
+        <div class="rec-recommend">Platform o Shooter para perfil conservador; Action o Sports para apuesta de peso.</div>
+        <div class="rec-why">
+          <strong>Por qué.</strong> Action y Sports dominan en volumen total, pero el mercado está saturado de títulos mediocres: ganar ahí exige ejecución de primer nivel. Platform tiene el <em>techo</em> más alto por juego (Mario, Donkey Kong superan a los mejores de cualquier otro género), pero el segmento es pequeño. Shooter ofrece el mejor equilibrio entre ventas medias y volumen total. Evitar Adventure y Strategy: estructuralmente bajo techo <em>y</em> bajo volumen.
+        </div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-num">02 · Plataforma</div>
+        <div class="rec-recommend">PS4 como apuesta principal, con port a PS3/X360 si el presupuesto lo permite.</div>
+        <div class="rec-why">
+          <strong>Por qué.</strong> PS4 tiene las mejores ventas medias por juego entre las plataformas nuevas; sus rivales de la misma generación (Wii U, Vita) son comercialmente débiles. PS3 y X360 son maduras pero todavía rentables. Evitar exclusivos a Wii / Wii U: la línea de sobremesa de Nintendo está en clara decadencia en 2016. Si se va a portátil, limitarla a 3DS y solo si el juego encaja en el catálogo Nintendo.
+        </div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-num">03 · Región</div>
+        <div class="rec-recommend">Diseñar primero para Norteamérica y Europa.</div>
+        <div class="rec-why">
+          <strong>Por qué.</strong> NA (49,4%) + EU (27,2%) representan el <strong>~76% de las ventas globales</strong> y comparten preferencias (Action, Sports, Shooter). Japón es estructuralmente distinto: prefiere Role-Playing, portátiles Nintendo y Pokémon — y representa solo el 14,6% de las ventas. Apuntar a Japón primero tiene sentido comercial solo si el estudio tiene ADN creativo japonés (Capcom, Bandai Namco, Square Enix).
+        </div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-num">04 · Rating ESRB</div>
+        <div class="rec-recommend">M para Action/Shooter; E para Platform/Sports. Evitar T como objetivo.</div>
+        <div class="rec-why">
+          <strong>Por qué.</strong> Los juegos M tienen las ventas medias más altas (0,94M de unidades), empujados por GTA y Call of Duty — el contenido adulto no perjudica al rendimiento comercial, correlaciona con él. E domina en volumen total pero es el mercado de masas saturado. T queda en lo peor de los dos mundos: menos ventas medias que M, sin ventaja clara sobre E.
+        </div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-num">05 · Calidad &amp; prensa</div>
+        <div class="rec-recommend">Apuntar a Critic Score ≥ 80; invertir en relaciones con prensa desde el inicio.</div>
+        <div class="rec-why">
+          <strong>Por qué.</strong> La puntuación de crítica correlaciona con ventas mucho más fuerte que la de usuario. Los juegos con <strong>40+ reviews de crítica venden de media 6× más</strong> que los que tienen menos de 10. Para un publisher pequeño, copias para reviewers, eventos de preview y relaciones con prensa especializada no son gasto opcional: son la palanca. <strong>Aviso:</strong> no optimizar por puntuación de usuario — cuando los usuarios puntúan más alto que la crítica, las ventas caen a 0,31M frente a 1,28M cuando la crítica puntúa más alto.
+        </div>
       </div>
     </section>
 

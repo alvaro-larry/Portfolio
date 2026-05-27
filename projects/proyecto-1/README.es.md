@@ -4,19 +4,25 @@
 
 🌐 **[Ver este proyecto online](https://alvaro-larry.github.io/Portfolio/projects/proyecto-1/)** · 📂 [Carpeta del proyecto en GitHub](https://github.com/alvaro-larry/Portfolio/tree/main/projects/proyecto-1) · 🏠 [Portfolio principal](https://alvaro-larry.github.io/Portfolio/)
 
-Análisis exploratorio completo del mercado global de videojuegos — desde el CSV en bruto hasta una base SQL limpia y un dashboard interactivo en Power BI. **16.712 títulos · ~8.918M de unidades vendidas a nivel mundial · mercados NA / EU / JP / Resto.**
+Análisis orientado a la decisión sobre el mercado global de videojuegos: **¿en qué juego habría apostado un publisher de tamaño medio en 2016, y por qué?** Proyecto end-to-end desde el CSV en bruto, pasando por limpieza y análisis en SQL, hasta un dashboard interactivo en Power BI. **16.712 títulos · ~8.918M de unidades vendidas a nivel mundial · mercados NA / EU / JP / Resto.**
 
 ---
 
-## Resumen
+## El encargo
 
-El proyecto parte de un dataset público de ventas de videojuegos (Kaggle, ~16.700 títulos lanzados entre 1980 y 2016) y lo convierte en un análisis estructurado que responde a una pregunta: **¿qué hace que un videojuego tenga éxito comercial?**
+Imagina que es finales de 2016 y diriges un publisher de videojuegos de tamaño medio, con presupuesto para apostar por un gran lanzamiento en los próximos 2-3 años. ¿Por dónde apuestas?
 
-El trabajo se divide en tres capas:
+Este análisis trata los 16.712 títulos históricos del dataset como evidencia para informar cinco decisiones comerciales concretas:
 
-1. **Limpieza en SQL** — tratamiento de nulos, conversiones de tipo, deduplicación y normalización de valores (`'tbd'` → `NULL`, `K-A`/`EC` → `E`, etc.).
-2. **SQL analítico** — 6 bloques temáticos: contexto de mercado, factores estructurales de éxito, análisis regional, evolución temporal, cruces avanzados y análisis de rating.
-3. **Visualización en Power BI + Excel** — dashboard interactivo que resume los hallazgos para un público no técnico.
+| # | Decisión | Qué necesitamos saber |
+|---|---|---|
+| 1 | **Género** | ¿Qué género maximiza las ventas esperadas para nuestro perfil de riesgo? |
+| 2 | **Plataforma** | ¿Dónde publicamos — y en cuántas plataformas? |
+| 3 | **Región** | ¿Para quién diseñamos primero: NA/EU, Japón, o todas las regiones? |
+| 4 | **Rating ESRB** | ¿A qué franja de edad apuntamos? |
+| 5 | **Inversión en calidad y prensa** | ¿Cuánto destinamos a polish y a cobertura mediática? |
+
+La metodología explica cómo se preparó y exploró el dato; la sección de **recomendaciones** traduce los patrones en un plan de acción concreto.
 
 ---
 
@@ -95,6 +101,8 @@ Dashboard de Power BI construido sobre los datos limpios que resume los hallazgo
 
 ## Hallazgos clave
 
+Lo que muestra el dato, antes de extraer conclusiones comerciales. Las recomendaciones de la sección siguiente parten de aquí.
+
 **Tamaño y forma del mercado**
 
 - Ventas globales registradas: **8.917,52M de unidades** en **16.712 títulos**.
@@ -122,6 +130,34 @@ Dashboard de Power BI construido sobre los datos limpios que resume los hallazgo
 **Ratings ESRB**
 
 - **E** domina en volumen (~40% de los títulos), pero los juegos **M** tienen las ventas medias más altas (0,94M) — empujados por las franquicias GTA y Call of Duty. El contenido para adultos *no* perjudica al rendimiento comercial.
+
+---
+
+## Recomendaciones (a fecha de 2016)
+
+Cada recomendación responde a una decisión del encargo, se apoya en los hallazgos anteriores y está dimensionada a lo que un publisher mediano podría realmente ejecutar.
+
+### 1. Género — Platform o Shooter para perfil conservador; Action o Sports para apuesta de peso.
+
+**Por qué.** Action y Sports dominan en volumen total, pero el mercado está saturado de títulos mediocres: ganar ahí exige ejecución de primer nivel. Platform tiene el *techo* más alto por juego (Mario, Donkey Kong superan a los mejores de cualquier otro género), pero el segmento es pequeño. Shooter ofrece el mejor equilibrio entre ventas medias y volumen total. Evitar Adventure y Strategy: estructuralmente bajo techo *y* bajo volumen.
+
+### 2. Plataforma — PS4 como apuesta principal, con port a PS3/X360 si el presupuesto lo permite.
+
+**Por qué.** PS4 tiene las mejores ventas medias por juego entre las plataformas nuevas; sus rivales de la misma generación (Wii U, Vita) son comercialmente débiles. PS3 y X360 son maduras pero todavía rentables. Evitar exclusivos a Wii / Wii U: la línea de sobremesa de Nintendo está en clara decadencia en 2016. Si se va a portátil, limitarla a 3DS, y solo si el juego encaja en el catálogo Nintendo.
+
+### 3. Región — Diseñar primero para Norteamérica y Europa.
+
+**Por qué.** NA (49,4%) + EU (27,2%) representan el **~76% de las ventas globales** y comparten preferencias (Action, Sports, Shooter). Japón es estructuralmente distinto: prefiere Role-Playing, portátiles Nintendo y Pokémon — y representa solo el 14,6% de las ventas. Apuntar a Japón primero tiene sentido comercial solo si el estudio tiene ADN creativo japonés (Capcom, Bandai Namco, Square Enix).
+
+### 4. Rating ESRB — M para Action/Shooter; E para Platform/Sports. Evitar T como objetivo.
+
+**Por qué.** Los juegos M tienen las **ventas medias más altas** (0,94M de unidades), empujados por GTA y Call of Duty — el contenido adulto no perjudica al rendimiento comercial, correlaciona con él. E domina en volumen total pero es el mercado de masas saturado. T queda en lo peor de los dos mundos: menos ventas medias que M, sin ventaja clara sobre E.
+
+### 5. Calidad y prensa — Apuntar a Critic Score ≥ 80; invertir en relaciones con prensa desde el inicio.
+
+**Por qué.** La puntuación de crítica correlaciona con ventas mucho más fuerte que la de usuario. Los juegos con **40+ reviews de crítica venden de media 6× más** que los que tienen menos de 10 — señal de que cobertura mediática y tamaño de publisher se acumulan. Para un publisher pequeño, esto significa que copias para reviewers, eventos de preview y relaciones con prensa especializada no son gasto opcional: son la palanca.
+
+**Insight extra (y un aviso).** No optimizar por puntuación de usuario. Cuando la crítica puntúa más alto que los usuarios, las ventas medias llegan a 1,28M. Cuando los usuarios puntúan más alto que la crítica, las ventas caen a 0,31M. El segmento "users-higher" captura sobre todo juegos que a la crítica no le gustaron, que el mercado general luego ignora independientemente de la opinión de los usuarios. La crítica conduce la decisión de compra; los usuarios reaccionan después.
 
 ---
 

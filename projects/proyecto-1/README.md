@@ -4,19 +4,25 @@
 
 🌐 **[View this project online](https://alvaro-larry.github.io/Portfolio/projects/proyecto-1/)** · 📂 [Project folder on GitHub](https://github.com/alvaro-larry/Portfolio/tree/main/projects/proyecto-1) · 🏠 [Portfolio home](https://alvaro-larry.github.io/Portfolio/)
 
-End-to-end exploratory data analysis of the global video game market — from raw CSV to a cleaned SQL database to an interactive Power BI dashboard. **16,712 titles · ~8,918M units sold globally · NA / EU / JP / Other markets.**
+Decision-oriented analysis of the global video game market: **which game would a mid-sized publisher have bet on in 2016, and why?** End-to-end project from raw CSV through SQL cleaning and analysis to an interactive Power BI dashboard. **16,712 titles · ~8,918M units sold globally · NA / EU / JP / Other markets.**
 
 ---
 
-## Overview
+## The brief
 
-This project takes a public dataset of video game sales (Kaggle, ~16,700 titles released between 1980 and 2016) and turns it into a structured analysis answering one question: **what makes a video game commercially successful?**
+Imagine it's late 2016 and you run a mid-sized video game publisher with the budget to commit to one major release in the next 2–3 years. Where do you place that bet?
 
-The work is split into three layers:
+This analysis treats the 16,712 historical titles in the dataset as evidence to inform five concrete commercial decisions:
 
-1. **Cleaning in SQL** — null handling, type casting, deduplication, value normalisation (`'tbd'` → `NULL`, `K-A`/`EC` → `E`, etc.).
-2. **Analytical SQL** — 6 thematic blocks: market context, structural factors of success, regional patterns, temporal evolution, advanced cross-cuts, and rating analysis.
-3. **Visualisation in Power BI + Excel** — interactive dashboard summarising the findings for a non-technical audience.
+| # | Decision | What we need to know |
+|---|---|---|
+| 1 | **Genre** | Which genre maximises expected sales for our risk profile? |
+| 2 | **Platform** | Where do we ship — and how many platforms? |
+| 3 | **Region** | Who do we design for first: NA/EU, Japan, or all three? |
+| 4 | **ESRB rating** | What audience age do we target? |
+| 5 | **Quality & PR investment** | How much to invest in polish and press coverage? |
+
+The methodology below explains how the data was prepared and explored; the **recommendations** section translates the patterns into a concrete action plan.
 
 ---
 
@@ -95,6 +101,8 @@ A Power BI dashboard built on the cleaned dataset, summarising the findings abov
 
 ## Key findings
 
+What the data shows, before drawing any commercial conclusions. The recommendations in the next section build on these.
+
 **Market size & shape**
 
 - Global sales recorded: **8,917.52M units** across **16,712 titles**.
@@ -122,6 +130,34 @@ A Power BI dashboard built on the cleaned dataset, summarising the findings abov
 **ESRB ratings**
 
 - **E** dominates by volume (~40% of titles), but **M-rated** games have the highest average sales (0.94M) — driven by the GTA and Call of Duty franchises. Mature content does *not* hurt commercial performance.
+
+---
+
+## Recommendations (as of 2016)
+
+Each recommendation answers one decision from the brief, follows from the findings above, and is sized against what a mid-sized publisher could realistically execute.
+
+### 1. Genre — Platform or Shooter for the risk-conscious; Action or Sports for the heavyweight bet.
+
+**Why.** Action and Sports dominate by total volume, but the market is crowded with mediocre titles, so winning there requires top-tier execution. Platform has the highest *ceiling* per game (Mario, Donkey Kong outsell the best of every other genre) but the segment is small. Shooter offers a strong balance between average sales and total volume. Avoid Adventure and Strategy: structurally low ceiling *and* low volume.
+
+### 2. Platform — PS4 as primary bet, with a PS3/X360 port if budget allows.
+
+**Why.** PS4 has the strongest average sales per game among newer platforms; its same-generation rivals (Wii U, Vita) are commercially weak. PS3 and X360 are mature but still profitable. Avoid Wii / Wii U exclusives — Nintendo's home console line is in clear decline by 2016. Limit handheld investment to 3DS, and only if the game fits Nintendo's catalogue.
+
+### 3. Region — Design for North America and Europe first.
+
+**Why.** NA (49.4%) + EU (27.2%) make up **~76% of global sales** and share preferences (Action, Sports, Shooter). Japan is structurally different: it prefers Role-Playing, Nintendo handhelds, and Pokémon — and accounts for only 14.6% of sales. Targeting Japan first only makes commercial sense if the studio has Japan-native creative DNA (Capcom, Bandai Namco, Square Enix).
+
+### 4. ESRB rating — M for Action/Shooter; E for Platform/Sports. Avoid T as the target.
+
+**Why.** M-rated games have the **highest average sales** (0.94M units), driven by GTA and Call of Duty — mature content does not hurt commercial performance, it correlates with it. E dominates in total volume but is the saturated mass market. T sits in the worst of both worlds: lower average sales than M, no clear advantage over E.
+
+### 5. Quality & PR — Aim for a Critic Score ≥ 80; invest in press relations early.
+
+**Why.** Critic scores correlate with sales much more strongly than user scores. Games with **40+ critic reviews sell on average 6× more** than those with fewer than 10 — a signal that press coverage and publisher size compound. For a smaller publisher, this means review copies, preview events and active relationships with specialist outlets are not optional spending: they're the lever.
+
+**Bonus insight (and a warning).** Don't optimise for user score. When critics rate a game higher than users, average sales peak at 1.28M. When users rate higher than critics, sales drop to 0.31M. The "users-higher" segment mostly captures games critics disliked, which the broader market then ignores regardless of user opinion. Critics drive the purchase decision; users react to it afterwards.
 
 ---
 
